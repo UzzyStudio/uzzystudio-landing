@@ -123,6 +123,7 @@ const SmoothAlternatingSlider = () => {
                 width: "100%",
                 position: "relative",
                 overflow: "hidden",
+                height: 430,
                 padding: "80px 0px",
             }}
         >
@@ -133,7 +134,7 @@ const SmoothAlternatingSlider = () => {
                 sx={{
                     position: "absolute",
                     right: 80,
-                    bottom: -30,
+                    bottom: 58,
                     width: 180,
                     zIndex: 0,
                 }}
