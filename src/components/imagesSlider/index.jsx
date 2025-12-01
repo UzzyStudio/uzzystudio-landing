@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 
 import ArrowForwardIosIcon from "../../assets/arrow_forward.svg";
@@ -10,7 +10,6 @@ import img3 from "../../assets/Mask group.svg";
 import img4 from "../../assets/Rectangle 7.svg";
 import img5 from "../../assets/img5.jpg";
 import img6 from "../../assets/img6.jpg";
-
 import Smiley from "../../assets/smiley face.svg";
 
 // Original images
@@ -19,46 +18,46 @@ const originalImages = [img1, img2, img3, img4, img5, img6];
 // Triplicate for seamless infinite loop
 const images = [...originalImages, ...originalImages, ...originalImages];
 
-const ITEM_WIDTH_BIG = 330;
-const ITEM_WIDTH_SMALL = 240;
-const GAP = 50;
-
-// Alternating size
-const getItemWidth = (index) =>
-    index % 2 === 0 ? ITEM_WIDTH_BIG : ITEM_WIDTH_SMALL;
-
-// Total width of ALL items
-const calculateTotal = () =>
-    images.reduce((sum, _, i) => sum + getItemWidth(i) + GAP, 0);
-
 const SmoothAlternatingSlider = () => {
-
     const sliderRef = useRef(null);
+
+    /** ----------------------  
+      RESPONSIVE DIMENSIONS  
+    -----------------------**/
+    const isXs = useMediaQuery("(max-width:600px)");
+    const isSm = useMediaQuery("(max-width:900px)");
+
+    const ITEM_WIDTH_BIG = isXs ? 180 : isSm ? 250 : 330;
+    const ITEM_WIDTH_SMALL = isXs ? 140 : isSm ? 200 : 240;
+    const GAP = isXs ? 20 : isSm ? 35 : 50;
+
+    const getItemWidth = (index) =>
+        index % 2 === 0 ? ITEM_WIDTH_BIG : ITEM_WIDTH_SMALL;
+
+    const calculateTotal = () =>
+        images.reduce((sum, _, i) => sum + getItemWidth(i) + GAP, 0);
 
     const [offset, setOffset] = useState(0);
     const totalWidth = calculateTotal();
 
-    /** SLIDE LOGIC (INFINITE LOOP WITHOUT GAPS) */
+    /** ----------------------------
+     SLIDE LOGIC (INFINITE LOOP)
+    -----------------------------**/
     const slide = (dir) => {
-        const moveBy = (ITEM_WIDTH_BIG + ITEM_WIDTH_SMALL) / 5;
+        const moveBy = (ITEM_WIDTH_BIG + ITEM_WIDTH_SMALL) / (isXs ? 12 : isSm ? 7 : 5);
 
         setOffset((prev) => {
             let next = dir === "left" ? prev + moveBy : prev - moveBy;
-
             const block = totalWidth / 3;
 
-            // Too far RIGHT (need to loop to center)
-            if (next > -block) {
-                // TEMPORARILY disable animation for teleport
-                sliderRef.current.style.transition = "none";
+            if (sliderRef.current === null) return prev;
 
+            if (next > -block) {
+                sliderRef.current.style.transition = "none";
                 const teleported = next - block;
 
-                // TELEPORT instantly
                 requestAnimationFrame(() => {
                     setOffset(teleported);
-
-                    // RESTORE smooth animation after teleport
                     requestAnimationFrame(() => {
                         sliderRef.current.style.transition =
                             "transform 0.55s cubic-bezier(.25,.8,.25,1)";
@@ -68,15 +67,12 @@ const SmoothAlternatingSlider = () => {
                 return teleported;
             }
 
-            // Too far LEFT (need to loop to center)
             if (next < -block * 2) {
                 sliderRef.current.style.transition = "none";
-
                 const teleported = next + block;
 
                 requestAnimationFrame(() => {
                     setOffset(teleported);
-
                     requestAnimationFrame(() => {
                         sliderRef.current.style.transition =
                             "transform 0.55s cubic-bezier(.25,.8,.25,1)";
@@ -90,20 +86,20 @@ const SmoothAlternatingSlider = () => {
         });
     };
 
-
-    /** SCROLL MOVEMENT */
+    /** ----------------------------
+      SCROLL MOVEMENT
+    -----------------------------**/
     useEffect(() => {
         let last = window.scrollY;
         let lock = false;
 
-        // Start in the MIDDLE block
         setOffset(-(totalWidth / 3));
 
         const handleScroll = () => {
             if (lock) return;
             lock = true;
 
-            setTimeout(() => (lock = false), 200);
+            setTimeout(() => (lock = false), isXs ? 350 : 200);
 
             const now = window.scrollY;
 
@@ -117,25 +113,27 @@ const SmoothAlternatingSlider = () => {
         return () => window.removeEventListener("wheel", handleScroll);
     }, [totalWidth]);
 
+    /** RENDER **/
     return (
         <Box
             sx={{
                 width: "100%",
                 position: "relative",
                 overflow: "hidden",
-                height: 430,
-                padding: "80px 0px",
+                height: isXs ? 200 : isSm ? 200 : 430,
+                pt: isXs ? "40px" : "80px",
+                pb: isXs ? "40px" : "80px",
             }}
         >
-            {/* SMILEY  */}
+            {/* SMILEY */}
             <Box
                 component="img"
                 src={Smiley}
                 sx={{
                     position: "absolute",
-                    right: 80,
-                    bottom: 58,
-                    width: 180,
+                    right: isXs ? 20 : isSm ? 40 : 80,
+                    bottom: isXs ? 139 : isSm ? 30 : 58,
+                    width: isXs ? 80 : isSm ? 120 : 180,
                     zIndex: 0,
                 }}
             />
@@ -149,7 +147,7 @@ const SmoothAlternatingSlider = () => {
                     gap: `${GAP}px`,
                     transform: `translateX(${offset}px)`,
                     transition: "transform 0.55s cubic-bezier(.25,.8,.25,1)",
-                    px: 4,
+                    px: isXs ? 1 : 4,
                 }}
             >
                 {images.map((src, i) => (
@@ -158,9 +156,11 @@ const SmoothAlternatingSlider = () => {
                         sx={{
                             flexShrink: 0,
                             width: getItemWidth(i),
-                            height: i % 2 === 0 ? 330 : 260,
+                            height: i % 2 === 0
+                                ? (isXs ? 150 : isSm ? 220 : 330)
+                                : (isXs ? 120 : isSm ? 170 : 260),
                             overflow: "hidden",
-                            borderRadius: "18px",
+                            borderRadius: "16px",
                         }}
                     >
                         <img
@@ -180,12 +180,12 @@ const SmoothAlternatingSlider = () => {
             <Box
                 sx={{
                     position: "absolute",
-                    top: "16%",
-                    left: "48%",
+                    top: isXs ? "10%" : isSm ? "14%" : "16%",
+                    left: "50%",
                     transform: "translate(-50%, -50%)",
                     background: "black",
-                    width: 58,
-                    height: 58,
+                    width: isXs ? 40 : isSm ? 50 : 58,
+                    height: isXs ? 40 : isSm ? 50 : 58,
                     borderRadius: "50%",
                     display: "flex",
                     alignItems: "center",
@@ -196,20 +196,19 @@ const SmoothAlternatingSlider = () => {
                     src={ArrowBackIosNewIcon}
                     onClick={() => slide("left")}
                     style={{
-                        width: 22,
+                        width: isXs ? 14 : 22,
                         position: "absolute",
-                        left: 8,
+                        left: isXs ? 5 : 8,
                         cursor: "pointer",
                     }}
                 />
-
                 <img
                     src={ArrowForwardIosIcon}
                     onClick={() => slide("right")}
                     style={{
-                        width: 22,
+                        width: isXs ? 14 : 22,
                         position: "absolute",
-                        right: 8,
+                        right: isXs ? 5 : 8,
                         cursor: "pointer",
                     }}
                 />
