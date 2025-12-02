@@ -1,6 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 
+import img2 from "../../assets/img2.png";
+
 // Shared description text for all sections
 const DESCRIPTION =
     "Know your spot. Set your sights. Plan your path. A solid strategy keeps us grounded and focused, making sure every move we make hits the mark and stays true to what we stand for.";
@@ -10,7 +12,7 @@ const SERVICES = [
     {
         title: "Strategy",
         bg: "#ffffff",
-        img: "/img2.png",
+        img: img2,
         points: [
             "Positioning",
             "Brand Workshop",
@@ -25,7 +27,7 @@ const SERVICES = [
     {
         title: "Branding",
         bg: "#CAF55E",
-        img: "/img2.png",
+        img: img2,
         points: [
             "Art Direction",
             "Visual Identity",
@@ -40,7 +42,7 @@ const SERVICES = [
     {
         title: "Digital",
         bg: "#ffffff",
-        img: "/img2.png",
+        img: img2,
         points: [
             "Webflow Development",
             "Web Design",
@@ -54,7 +56,7 @@ const SERVICES = [
     {
         title: "Webflow",
         bg: "#CAF55E",
-        img: "/img2.png",
+        img: img2,
         points: [
             "Micro Interactions",
             "Responsive Design",
@@ -68,7 +70,7 @@ const SERVICES = [
     {
         title: "Creative Direction",
         bg: "#ffffff",
-        img: "/img2.png",
+        img: img2,
         points: [
             "Campaign Concepts",
             "Art Direction",
@@ -81,7 +83,7 @@ const SERVICES = [
     {
         title: "Marketing",
         bg: "#CAF55E",
-        img: "/img2.png",
+        img: img2,
         points: [
             "Social Media Strategy",
             "Paid Campaigns",
