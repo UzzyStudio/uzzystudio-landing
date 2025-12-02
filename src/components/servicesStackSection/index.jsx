@@ -10,7 +10,7 @@ const SERVICES = [
     {
         title: "Strategy",
         bg: "#ffffff",
-        img: "src/assets/img2.png",
+        img: "/img2.png",
         points: [
             "Positioning",
             "Brand Workshop",
@@ -25,7 +25,7 @@ const SERVICES = [
     {
         title: "Branding",
         bg: "#CAF55E",
-        img: "src/assets/img2.png",
+        img: "/img2.png",
         points: [
             "Art Direction",
             "Visual Identity",
@@ -40,7 +40,7 @@ const SERVICES = [
     {
         title: "Digital",
         bg: "#ffffff",
-        img: "src/assets/img2.png",
+        img: "/img2.png",
         points: [
             "Webflow Development",
             "Web Design",
@@ -54,7 +54,7 @@ const SERVICES = [
     {
         title: "Webflow",
         bg: "#CAF55E",
-        img: "src/assets/img2.png",
+        img: "/img2.png",
         points: [
             "Micro Interactions",
             "Responsive Design",
@@ -68,7 +68,7 @@ const SERVICES = [
     {
         title: "Creative Direction",
         bg: "#ffffff",
-        img: "src/assets/img2.png",
+        img: "/img2.png",
         points: [
             "Campaign Concepts",
             "Art Direction",
@@ -81,7 +81,7 @@ const SERVICES = [
     {
         title: "Marketing",
         bg: "#CAF55E",
-        img: "src/assets/img2.png",
+        img: "/img2.png",
         points: [
             "Social Media Strategy",
             "Paid Campaigns",
