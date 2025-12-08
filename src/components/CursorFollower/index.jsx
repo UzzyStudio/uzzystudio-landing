@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-
+import "./style.css";
 const CursorFollower = () => {
     const cursorRef = useRef(null);
     const pos = useRef({ x: 0, y: 0 });       // actual mouse position
