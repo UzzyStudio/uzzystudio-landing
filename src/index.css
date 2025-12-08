@@ -29,8 +29,8 @@ body {
   width: 100%;
   min-height: 100vh;
   display: block;
-  background-color: #fdfff8
-    /* ← VERY IMPORTANT */
+  background-color: #fcfff7;
+  /* ← VERY IMPORTANT */
 }
 
 
