@@ -1,0 +1,4 @@
+/* Prevent horizontal overflow from buttons/images */
+* {
+    box-sizing: border-box;
+}
