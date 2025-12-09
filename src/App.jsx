@@ -4,9 +4,10 @@ import Hero from './components/heroSection';
 import SmoothAlternatingSlider from './components/imagesSlider';
 import CreativeTextSection from './components/textSection';
 import ManifestoSection from './components/manifestoSection';
+import FooterSection from './components/FooterSection';
 // import ServicesStackSection from './components/servicesStackSection';
 import CursorFollower from './components/CursorFollower';
-
+import AnimatedMembers from './components/AnimatedMembers';
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 function App() {
@@ -34,8 +35,8 @@ function App() {
       <SmoothAlternatingSlider />
       <CreativeTextSection />
       <ManifestoSection />
-      <Header />
-      <Hero />
+      <AnimatedMembers />
+      {/* <FooterSection /> */}
     </>
   );
 }
