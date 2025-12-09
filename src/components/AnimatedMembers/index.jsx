@@ -87,8 +87,6 @@ export default function AnimatedMembers() {
         <Box
             ref={containerRef}
             sx={{
-                overflowX: "hidden",
-                overflowY: "hidden",
                 width: "100%",
                 maxWidth: "1600px",
                 mx: "auto",

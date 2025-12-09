@@ -87,7 +87,7 @@ const CreativeTextSection = () => {
     const INDENT_SCALE = isMobile ? 0.3 : isTablet ? 0.6 : 1;
 
     return (
-        <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
+        <Box sx={{ width: "100%", display: "flex", flexDirection: "column", marginTop: "80px" }}>
             <Box
                 ref={containerRef}
                 sx={{
