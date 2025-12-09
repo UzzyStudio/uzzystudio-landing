@@ -36,6 +36,8 @@ function App() {
       <CreativeTextSection />
       <ManifestoSection />
       <AnimatedMembers />
+      <Header />
+      <Hero />
       {/* <FooterSection /> */}
     </>
   );
