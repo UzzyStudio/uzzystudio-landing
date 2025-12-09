@@ -91,7 +91,7 @@ export default function AnimatedMembers() {
                 width: "100%",
                 maxWidth: "1600px",
                 mx: "auto",
-                height: "100vh",
+                height: isMobile ? "600px" : isTablet ? "100vh" : "100vh",
                 background: "#F8F8F8",
                 display: "flex",
                 alignItems: "center",
