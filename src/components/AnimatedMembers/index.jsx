@@ -104,7 +104,7 @@ export default function AnimatedMembers() {
         >
             <Typography
                 sx={{
-                    fontSize: isMobile ? "45px" : isTablet ? "48px" : "75px",
+                    fontSize: isMobile ? "35px" : isTablet ? "48px" : "75px",
                     fontWeight: 700,
                     textAlign: "center",
                     letterSpacing: { xs: "-1px", md: "-2px" },
