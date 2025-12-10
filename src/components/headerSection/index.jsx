@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     AppBar,
     Toolbar,
@@ -30,31 +30,63 @@ const slideDownFast = keyframes`
     opacity: 1;
   }
 `;
+
 const Header = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [showHeader, setShowHeader] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
-    // Detect tablet & mobile screens
     const isMobile = useMediaQuery("(max-width:1124px)");
+
+    // Scroll handler for hide/show header
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down
+                setShowHeader(false);
+            } else {
+                // Scrolling up
+                setShowHeader(true);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
 
     return (
         <AppBar
             elevation={0}
             sx={{
                 backgroundColor: "transparent",
-                position: "sticky",
+                position: "fixed", // fixed works better than sticky for this effect
+                top: 0,
                 width: "100%",
                 maxWidth: "1600px",
                 margin: "auto",
                 paddingX: 6,
                 paddingY: 1,
+                transition: "transform 0.3s ease",
+                transform: showHeader ? "translateY(0)" : "translateY(-120px)", // hide when scrolling down
+                zIndex: 100,
             }}
         >
-            <Toolbar sx={{
-                display: "flex", justifyContent: "flex-end", animation: `${slideDownFast} 0.7s ease-out`,
-                animationFillMode: "forwards",
-            }}>
+            <Toolbar
+                sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    animation: `${slideDownFast} 0.7s ease-out`,
+                    animationFillMode: "forwards",
+                }}
+            >
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, marginLeft: "auto" }}>
-
                     {/* Logo */}
                     <Box
                         sx={{
@@ -73,7 +105,6 @@ const Header = () => {
                     {/* Desktop Menu */}
                     {!isMobile && (
                         <Box sx={{ display: "flex", alignItems: "center", gap: 20 }}>
-                            {/* Menu */}
                             <Box
                                 sx={{
                                     display: "flex",
@@ -102,7 +133,6 @@ const Header = () => {
                                 ))}
                             </Box>
 
-                            {/* Button */}
                             <Button
                                 variant="contained"
                                 sx={{
@@ -136,16 +166,9 @@ const Header = () => {
             </Toolbar>
 
             {/* Mobile Drawer */}
-            <Drawer
-                anchor="right"
-                open={drawerOpen}
-                onClose={() => setDrawerOpen(false)}
-            >
+            <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <Box sx={{ width: 250, padding: 2 }}>
-                    <IconButton
-                        onClick={() => setDrawerOpen(false)}
-                        sx={{ alignSelf: "flex-end" }}
-                    >
+                    <IconButton onClick={() => setDrawerOpen(false)} sx={{ alignSelf: "flex-end" }}>
                         <CloseIcon />
                     </IconButton>
 

@@ -6,6 +6,7 @@ import CreativeTextSection from './components/textSection';
 import ManifestoSection from './components/manifestoSection';
 import MotionSection from './components/MotionSection';
 import FooterSection from './components/FooterSection';
+import VideoSection from './components/VideoSection';
 // import ServicesStackSection from './components/servicesStackSection';
 import CursorFollower from './components/CursorFollower';
 import AnimatedMembers from './components/AnimatedMembers';
@@ -38,6 +39,7 @@ function App() {
       <CreativeTextSection />
       <ManifestoSection />
       <MotionSection />
+      {/* <VideoSection /> */}
       <AnimatedMembers />
       <ContactSection />
       <FooterSection />
