@@ -88,26 +88,31 @@ export default function FooterSection() {
         >
             {/* INNER CONTAINER */}
             <Box sx={{
-                maxWidth: "1600px", width: "95%", paddingTop: "35px", mx: "auto", px: 2, backgroundColor: "#1D1D1B", borderTopLeftRadius: "20px", borderTopRightRadius: "20px"
+                maxWidth: "1600px", width: "95%", paddingTop: { xs: "20px", md: "35px" },
+                px: { xs: 1, sm: 2, md: 4 },
+                mx: "auto", backgroundColor: "#1D1D1B", borderTopLeftRadius: "20px", borderTopRightRadius: "20px"
             }}>
 
                 {/* ========== ROW 1 — MENU ========== */}
                 <Grid ref={menuRef}
                     container
                     sx={{
-                        mb: 8,
-                        justifyContent: "space-between",
+                        mb: { xs: 4, md: 8 },
+                        justifyContent: { xs: "center", md: "space-between" },
                         alignItems: "center",
+                        textAlign: { xs: "center", md: "left" },
+                        flexDirection: { xs: "column", md: "row" },
+                        gap: { xs: 2, md: 0 }
                     }}>
 
                     {/* LEFT MENU — 3 ITEMS */}
                     <Grid item >
-                        <Grid container spacing={4} sx={{ marginLeft: "80px" }}>
+                        <Grid container spacing={4} sx={{ marginLeft: { xs: 0, md: "80px" }, justifyContent: { xs: "center", md: "flex-start" } }}>
                             {["Vision", "Cases", "Services"].map((item, i) => (
                                 <Grid item key={i} >
                                     <Typography
                                         sx={{
-                                            fontSize: "15px",
+                                            fontSize: { xs: "12px", sm: "13px", md: "15px" },
                                             fontWeight: 500,
                                             cursor: "pointer",
                                             fontFamily: "Inter Tight, sans-serif",
@@ -125,12 +130,13 @@ export default function FooterSection() {
 
                     {/* RIGHT MENU — 2 ITEMS */}
                     <Grid item>
-                        <Grid container spacing={4} sx={{ marginRight: "80px" }}>
+                        <Grid container spacing={4} sx={{ marginRight: { xs: 0, md: "80px" }, justifyContent: { xs: "center", md: "flex-end" } }}>
                             {["Behance", "Instagram"].map((item, i) => (
                                 <Grid item key={i}>
                                     <Typography
                                         sx={{
-                                            fontSize: "13px",
+                                            fontSize: { xs: "10px", sm: "13px", md: "15px" },
+
                                             fontWeight: 500,
                                             color: "#fff",
                                             fontFamily: "Inter Tight, sans-serif",
@@ -161,17 +167,20 @@ export default function FooterSection() {
                     >
                         {/* CENTER — BUTTON */}
                         <Grid
-                            sx={{ textAlign: "center", position: "relative", top: "170px", left: "791px", zIndex: "2" }}
+                            sx={{
+                                textAlign: "center", position: "relative", top: { xs: "120px", sm: "140px", md: "170px" },
+                                left: { xs: "210px", sm: "200px", md: "791px" }, zIndex: "2"
+                            }}
                         >
                             <Button
                                 ref={buttonRef}
                                 sx={{
-                                    px: 4,
-                                    py: 3,
+                                    px: { xs: 2, sm: 3, md: 4 },   // smaller padding on mobile
+                                    py: { xs: 2, sm: 2.5, md: 3 },
+                                    fontSize: { xs: "12px", sm: "14px", md: "15px" },
                                     borderRadius: "40px",
                                     backgroundColor: "#CAF55E",
                                     color: "#1D1D1B",
-                                    fontSize: "15px",
                                     fontWeight: 700,
                                     fontFamily: "Inter Tight, sans-serif",
                                     transform: "rotate(-20deg)",   // slight left tilt
@@ -192,15 +201,20 @@ export default function FooterSection() {
                         {/* RIGHT — RANDOM IMAGE */}
                         <Grid ref={randomRef}
 
-                            sx={{ textAlign: "center", position: "relative", top: "214px", left: "790px" }}
+                            sx={{
+                                textAlign: "center", position: "relative", top: { xs: "-20px", sm: "80px", md: "214px" },
+                                left: { xs: "100px", sm: "180px", md: "790px" },
+                            }}
                         >
                             <img
                                 src={RandomImg}
                                 alt="random"
-                                style={{ width: "75px", height: "auto", }}
+                                style={{
+                                    width: "75px", height: "auto", maxWidth: { xs: "20px", sm: "55px", md: "75px" }
+                                }}
                             />
                             <Typography sx={{
-                                fontSize: "15px", fontFamily: "Inter Tight, sans-serif", marginTop: "30px"
+                                fontSize: { xs: "10px", sm: "12px", md: "15px" }, fontFamily: "Inter Tight, sans-serif", marginTop: { xs: "10px", sm: "20px", md: "30px" },
                             }}>
                                 project@uzzystudio.com
                             </Typography>
@@ -238,6 +252,6 @@ export default function FooterSection() {
                     </Grid>
                 </Grid>
             </Box>
-        </Box>
+        </Box >
     );
 }

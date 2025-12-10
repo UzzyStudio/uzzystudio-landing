@@ -39,7 +39,7 @@ function App() {
       <CreativeTextSection />
       <ManifestoSection />
       <MotionSection />
-      {/* <VideoSection /> */}
+      <VideoSection />
       <AnimatedMembers />
       <ContactSection />
       <FooterSection />

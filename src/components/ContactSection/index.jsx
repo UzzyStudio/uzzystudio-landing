@@ -61,15 +61,16 @@ export default function ContactSection() {
                 maxWidth: "1600px",
                 mx: "auto",
             }}>
-                <Grid container spacing={15} alignItems="flex-start" wrap="nowrap">
+                <Grid container spacing={{ xs: 0, md: 15 }} alignItems="flex-start" justifyContent="space-between" flexWrap={{ xs: "wrap", sm: "wrap", md: "nowrap" }}
+                >
 
                     {/* LEFT COLUMN */}
-                    <Grid item xs={12} md={4} sx={{ minWidth: 0 }}>
+                    <Grid item xs={12} md={4} sx={{ minWidth: 0, mb: { xs: 6, md: 0 } }}>
                         <Box>
                             {/* HEADLINE */}
                             <Typography
                                 sx={{
-                                    fontSize: { xs: "32px", md: "42px" },
+                                    fontSize: { xs: "26px", sm: "30px", md: "42px" },
                                     fontFamily: "Inter Tight, sans-serif",
                                     fontWeight: 700,
                                     lineHeight: 1.2,
@@ -97,7 +98,7 @@ export default function ContactSection() {
                             <Typography
                                 sx={{
                                     mt: 2,
-                                    fontSize: "22px",
+                                    fontSize: { xs: "16px", md: "22px" },
                                     fontWeight: 400,
                                     fontFamily: "Inter Tight, sans-serif",
 
@@ -137,19 +138,19 @@ export default function ContactSection() {
                                     component="img"
                                     src={BehanceLogo}
                                     alt="Behance"
-                                    sx={{ height: "45px" }}
+                                    sx={{ height: { xs: "32px", md: "45px" } }}
                                 />
                                 <Box
                                     component="img"
                                     src={DribbbleLogo}
                                     alt="Dribbble"
-                                    sx={{ height: "45px" }}
+                                    sx={{ height: { xs: "32px", md: "45px" } }}
                                 />
                                 <Box
                                     component="img"
                                     src={InstagramLogo}
                                     alt="Instagram"
-                                    sx={{ height: "45px" }}
+                                    sx={{ height: { xs: "32px", md: "45px" } }}
                                 />
                             </Stack>
 
@@ -170,14 +171,37 @@ export default function ContactSection() {
                     </Grid>
 
                     {/* RIGHT COLUMN (FORM) */}
-                    {/* RIGHT COLUMN (FORM) */}
-                    <Grid item xs={12} md={7} sx={{ minWidth: 0, display: "flex", justifyContent: "center" }}>
-                        <Box sx={{ width: "100%", maxWidth: "620px" }}>
+                    <Grid
+                        item
+                        xs={12}
+                        md={7}
+                        sx={{
+                            minWidth: 0,
+                            display: "flex",
+                            justifyContent: { xs: "flex-start", md: "center" },
+                            mt: { xs: 4, md: 0 }
+                        }}
+                    >
+                        <Box sx={{
+                            width: "100%",
+                            maxWidth: {
+                                xs: "320px",   // mobile
+                                sm: "420px",   // tablet
+                                md: "780px",   // desktop
+                            },
+                            marginRight: {
+                                xs: 0, // mobile
+                                sm: 0, // tablet
+                                md: "100px", // desktop
+                            },
+                        }}>
                             {/* NAME FIELDS */}
                             <Grid container spacing={3}>
                                 {/* NAME & COMPANY */}
-                                <Grid item xs={12} md={6} sm={6} width={"47%"}>
-                                    <Typography sx={{ mb: 1, fontWeight: 500, color: "#000", fontFamily: "Inter Tight, sans-serif", fontSize: "15px" }}>
+                                <Grid item xs={12} md={6} sm={6} sx={{ width: { xs: "90%", sm: "90%", md: "47%" } }}>
+                                    <Typography sx={{
+                                        mb: 1, fontWeight: 500, color: "#000", fontFamily: "Inter Tight, sans-serif", fontSize: { xs: "13px", md: "15px" },
+                                    }}>
                                         Name & Company
                                     </Typography>
 
@@ -194,7 +218,7 @@ export default function ContactSection() {
                                         InputLabelProps={{
                                             style: {
                                                 fontFamily: "Inter Tight, sans-serif",
-                                                fontSize: "14px",
+                                                sx: { fontSize: { xs: "13px", md: "14px" } }
                                             }
                                         }}
                                         sx={{
@@ -212,8 +236,10 @@ export default function ContactSection() {
                                 </Grid>
 
                                 {/* EMAIL */}
-                                <Grid item xs={12} md={6} sm={6} width={"47%"}>
-                                    <Typography sx={{ mb: 1, fontWeight: 500, color: "#000", fontFamily: "Inter Tight, sans-serif", fontSize: "15px" }}>
+                                <Grid item xs={12} md={6} sm={6} sx={{ width: { xs: "90%", sm: "90%", md: "47%" } }}>
+                                    <Typography sx={{
+                                        mb: 1, fontWeight: 500, color: "#000", fontFamily: "Inter Tight, sans-serif", fontSize: { xs: "13px", md: "15px" },
+                                    }}>
                                         Email
                                     </Typography>
 
@@ -249,7 +275,9 @@ export default function ContactSection() {
 
                             {/* SERVICES */}
                             <Box sx={{ mt: 4 }}>
-                                <Typography sx={{ fontWeight: 500, mb: 1, color: "#000", fontFamily: "Inter Tight, sans-serif", fontSize: "15px" }}>
+                                <Typography sx={{
+                                    fontWeight: 500, mb: 1, color: "#000", fontFamily: "Inter Tight, sans-serif", fontSize: { xs: "13px", md: "15px" },
+                                }}>
                                     I'm interested in...
                                 </Typography>
 
@@ -261,9 +289,9 @@ export default function ContactSection() {
                                             onClick={() => toggleService(item)}
                                             sx={{
                                                 borderRadius: "80px",
-                                                px: 2.2,
-                                                py: 3,
-                                                fontSize: "14px",
+                                                px: { xs: 1.5, sm: 2, md: 2.2 },   // left-right padding
+                                                py: { xs: 1.5, sm: 2, md: 3 },     // top-bottom padding
+                                                fontSize: { xs: "12px", sm: "13px", md: "14px" },
                                                 cursor: "pointer",
                                                 backgroundColor: selectedServices.includes(item) ? "black" : "transparent",
                                                 color: selectedServices.includes(item) ? "white" : "black",
@@ -284,7 +312,7 @@ export default function ContactSection() {
                                         fontWeight: 500,
                                         mb: 1,
                                         fontFamily: "Inter Tight, sans-serif",
-                                        fontSize: "15px",
+                                        fontSize: { xs: "13px", md: "15px" },
                                         color: "#000"
                                     }}
                                 >
@@ -302,10 +330,10 @@ export default function ContactSection() {
                                                 onClick={() => setSelectedBudget(isSelected ? null : item)}
                                                 sx={{
                                                     borderRadius: "80px",
-                                                    px: 2.2,
-                                                    py: 3,
+                                                    px: { xs: 1.5, sm: 2, md: 2.2 },   // left-right padding
+                                                    py: { xs: 1.5, sm: 2, md: 3 },     // top-bottom padding
+                                                    fontSize: { xs: "12px", sm: "13px", md: "14px" },
                                                     cursor: "pointer",
-                                                    fontSize: "14px",
                                                     backgroundColor: isSelected ? "#000" : "transparent",
                                                     color: isSelected ? "#fff" : "#000",
                                                     border: isSelected
@@ -338,7 +366,7 @@ export default function ContactSection() {
                                     InputLabelProps={{
                                         style: {
                                             fontFamily: "Inter Tight, sans-serif",
-                                            fontSize: "14px",
+                                            sx: { fontSize: { xs: "10px", md: "14px" } }
                                         }
                                     }}
                                 />
@@ -350,15 +378,15 @@ export default function ContactSection() {
 
                                     variant="contained"
                                     sx={{
-                                        py: 1.6,
-                                        px: 7,
+                                        py: { xs: 1.3, md: 1.6 },
+                                        px: { xs: 4, md: 7 },
+                                        fontSize: { xs: "13px", md: "14px" },
                                         backgroundColor: "black",
                                         color: "white",
                                         fontFamily: "Inter Tight, sans-serif",
                                         borderRadius: "80px",
                                         fontWeight: 400,
                                         textTransform: "none",
-                                        fontSize: "14px",
                                         "&:hover": {
                                             backgroundColor: "#111",
                                         },
@@ -370,8 +398,8 @@ export default function ContactSection() {
                         </Box>
                     </Grid>
 
-                </Grid>
-            </Box>
+                </Grid >
+            </Box >
         </Box >
     );
 }
