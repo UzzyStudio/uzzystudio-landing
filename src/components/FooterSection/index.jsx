@@ -161,7 +161,7 @@ export default function FooterSection() {
                     >
                         {/* CENTER — BUTTON */}
                         <Grid
-                            sx={{ textAlign: "center", position: "relative", top: "170px", left: "850px" }}
+                            sx={{ textAlign: "center", position: "relative", top: "170px", left: "791px", zIndex: "2" }}
                         >
                             <Button
                                 ref={buttonRef}
@@ -192,7 +192,7 @@ export default function FooterSection() {
                         {/* RIGHT — RANDOM IMAGE */}
                         <Grid ref={randomRef}
 
-                            sx={{ textAlign: "center", position: "relative", top: "214px", left: "850px" }}
+                            sx={{ textAlign: "center", position: "relative", top: "214px", left: "790px" }}
                         >
                             <img
                                 src={RandomImg}
