@@ -17,20 +17,20 @@ gsap.registerPlugin(ScrollTrigger);
 const PortfolioSection = () => {
     const sectionRef = useRef(null);
     useEffect(() => {
-        const elements = gsap.utils.toArray(".zoom-bg");
+        const images = gsap.utils.toArray(".zoom-img");
 
-        elements.forEach((el) => {
+        images.forEach((img) => {
             gsap.fromTo(
-                el,
-                { backgroundSize: "110%" },     // start slightly zoomed
+                img,
+                { scale: 1.05 },
                 {
-                    backgroundSize: "130%",     // smooth zoom
-                    ease: "power1.out",
+                    scale: 1.2,
+                    ease: "none",
                     scrollTrigger: {
-                        trigger: el,
+                        trigger: img,
                         start: "top bottom",
                         end: "bottom top",
-                        scrub: 2,               // smooth scroll link
+                        scrub: 0.6,
                     },
                 }
             );
@@ -38,6 +38,8 @@ const PortfolioSection = () => {
 
         return () => ScrollTrigger.getAll().forEach((t) => t.kill());
     }, []);
+
+
 
 
     // ************************************
@@ -94,17 +96,28 @@ const PortfolioSection = () => {
     // ************************************
     const FullBox = ({ img, tags, title, subtitle }) => (
         <Box
-            className="zoom-bg"
             sx={{
                 position: "relative",
                 height: { xs: "300px", md: "500px" },
-                backgroundImage: `url(${img})`,
-                // backgroundSize: "cover",
-                backgroundSize: { xs: "160%", md: "110%" },      // 🔥 start slightly zoomed
-                backgroundPosition: "center",
+                overflow: "hidden",        // IMPORTANT
                 borderRadius: 2,
             }}
         >
+            <img
+                src={img}
+                className="zoom-img"
+                style={{
+                    willChange: "transform",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    transformOrigin: "center center", // smooth scaling
+                }}
+            />
+
             <Box
                 sx={{
                     display: "flex",
@@ -187,19 +200,30 @@ const PortfolioSection = () => {
     // ************************************
     const HalfBox = ({ img, tags, title, subtitle }) => (
         <Box
-            className="zoom-bg"
-
             sx={{
-                flex: { xs: "unset", md: 1.1 },   // FIX FOR MOBILE
-                width: { xs: "100%", md: "auto" },  // FULL WIDTH ON MOBILE
+                flex: { xs: "unset", md: 1.1 },
+                width: { xs: "100%", md: "auto" },
                 position: "relative",
-                height: { xs: "380px", md: "500px" }, // MORE HEIGHT FOR MOBILE TEXT
-                backgroundImage: `url(${img})`,
-                backgroundSize: "110%",
-                backgroundPosition: "center",
+                height: { xs: "380px", md: "500px" },
+                overflow: "hidden",
                 borderRadius: 2,
             }}
         >
+            <img
+                src={img}
+                className="zoom-img"
+                style={{
+                    willChange: "transform",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    transformOrigin: "center center",
+                }}
+            />
+
             <Box
                 sx={{
                     display: "flex",
@@ -338,7 +362,7 @@ const PortfolioSection = () => {
     // 🔥 RETURN
     // ************************************
     return (
-        <Box sx={{ py: 14 }}>
+        <Box sx={{ width: "100%" }}>
             <Box sx={{ maxWidth: "1600px", mx: "auto", px: 2, display: "flex", flexDirection: "column", gap: "10px" }}>
 
                 {portfolioData.map((row, index) => (

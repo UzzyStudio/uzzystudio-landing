@@ -51,7 +51,7 @@ export default function ContactSection() {
         <Box
             sx={{
                 backgroundColor: "#fff",
-                py: 12,
+                py: { xs: 2, md: 12 },
                 px: { xs: 2, md: 6 },
                 width: "100%"
             }}

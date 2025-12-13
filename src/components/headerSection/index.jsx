@@ -15,10 +15,15 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import ContactDrawer from "../ContactDrawer";
 
 import Logo from "../../assets/logo.svg fill.svg";
 
-const menuItems = ["Vision", "Services", "Cases"];
+const menuItems = [
+    { label: "Vision", id: "vision" },
+    { label: "Services", id: "services" },
+    { label: "Cases", id: "cases" },
+];
 
 const slideDownFast = keyframes`
   0% {
@@ -35,6 +40,7 @@ const Header = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [showHeader, setShowHeader] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [contactOpen, setContactOpen] = useState(false);
 
     const isMobile = useMediaQuery("(max-width:1124px)");
 
@@ -60,6 +66,23 @@ const Header = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [lastScrollY]);
+
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+        if (!section) return;
+
+        const headerOffset = 120; // height of header
+        const elementPosition = section.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+        });
+
+        setDrawerOpen(false); // close mobile menu
+    };
+
 
     return (
         <AppBar
@@ -111,13 +134,14 @@ const Header = () => {
                                     gap: 2,
                                     alignItems: "center",
                                     backgroundColor: "#EEEEEE",
-                                    borderRadius: "50px",
-                                    padding: "12px 34px",
+                                    borderRadius: "70px",
+                                    padding: "8px 34px",
                                 }}
                             >
                                 {menuItems.map((item) => (
                                     <Box
-                                        key={item}
+                                        key={item.id}
+                                        onClick={() => scrollToSection(item.id)}
                                         sx={{
                                             fontSize: "15px",
                                             fontWeight: 900,
@@ -125,16 +149,19 @@ const Header = () => {
                                             cursor: "pointer",
                                             borderRadius: "12px",
                                             fontFamily: "Inter Tight, sans-serif",
+                                            padding: "6px 10px",
                                             "&:hover": { backgroundColor: "#E5E5E5" },
                                         }}
                                     >
-                                        {item}
+                                        {item.label}
                                     </Box>
                                 ))}
                             </Box>
 
                             <Button
                                 variant="contained"
+                                onClick={() => setContactOpen(true)}
+
                                 sx={{
                                     backgroundColor: "#CAF55E",
                                     color: "#1D1D1B",
@@ -174,10 +201,10 @@ const Header = () => {
 
                     <List>
                         {menuItems.map((item) => (
-                            <ListItem key={item} disablePadding>
-                                <ListItemButton onClick={() => setDrawerOpen(false)}>
+                            <ListItem key={item.id} disablePadding>
+                                <ListItemButton onClick={() => scrollToSection(item.id)}>
                                     <ListItemText
-                                        primary={item}
+                                        primary={item.label}
                                         primaryTypographyProps={{
                                             fontWeight: 900,
                                             fontSize: "16px",
@@ -187,11 +214,16 @@ const Header = () => {
                                 </ListItemButton>
                             </ListItem>
                         ))}
+
                     </List>
 
                     <Box sx={{ padding: 2 }}>
                         <Button
                             fullWidth
+                            onClick={() => {
+                                setDrawerOpen(false);
+                                setContactOpen(true);
+                            }}
                             variant="contained"
                             sx={{
                                 backgroundColor: "#CAF55E",
@@ -210,6 +242,12 @@ const Header = () => {
                     </Box>
                 </Box>
             </Drawer>
+
+            <ContactDrawer
+                open={contactOpen}
+                onClose={() => setContactOpen(false)}
+            />
+
         </AppBar>
     );
 };

@@ -1,16 +1,18 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-
 import img2 from "../../assets/img2.png";
+import { useRef, useLayoutEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Shared description text for all sections
-const DESCRIPTION =
-    "Know your spot. Set your sights. Plan your path. A solid strategy keeps us grounded and focused, making sure every move we make hits the mark and stays true to what we stand for.";
+// Shared description text
+
 
 // Master Services Array
 const SERVICES = [
     {
         title: "Strategy",
+        DESCRIPTION:
+            "Know your spot. Set your sights. Plan your path. A solid strategy keeps us grounded and focused, making sure every move we make hits the mark and stays true to what we stand for.",
         bg: "#ffffff",
         img: img2,
         points: [
@@ -26,7 +28,9 @@ const SERVICES = [
     },
     {
         title: "Branding",
-        bg: "#CAF55E",
+        DESCRIPTION:
+            "Know your spot. Set your sights. Plan your path. A solid strategy keeps us grounded and focused, making sure every move we make hits the mark and stays true to what we stand for.",
+        bg: "#E7E7E7",
         img: img2,
         points: [
             "Art Direction",
@@ -41,6 +45,8 @@ const SERVICES = [
     },
     {
         title: "Digital",
+        DESCRIPTION:
+            "Know your spot. Set your sights. Plan your path. A solid strategy keeps us grounded and focused, making sure every move we make hits the mark and stays true to what we stand for.",
         bg: "#ffffff",
         img: img2,
         points: [
@@ -55,7 +61,9 @@ const SERVICES = [
     },
     {
         title: "Webflow",
-        bg: "#CAF55E",
+        DESCRIPTION:
+            "Know your spot. Set your sights. Plan your path. A solid strategy keeps us grounded and focused, making sure every move we make hits the mark and stays true to what we stand for.",
+        bg: "#E7E7E7",
         img: img2,
         points: [
             "Micro Interactions",
@@ -69,6 +77,8 @@ const SERVICES = [
     },
     {
         title: "Creative Direction",
+        DESCRIPTION:
+            "Know your spot. Set your sights. Plan your path. A solid strategy keeps us grounded and focused, making sure every move we make hits the mark and stays true to what we stand for.",
         bg: "#ffffff",
         img: img2,
         points: [
@@ -82,7 +92,9 @@ const SERVICES = [
     },
     {
         title: "Marketing",
-        bg: "#CAF55E",
+        DESCRIPTION:
+            "Know your spot. Set your sights. Plan your path. A solid strategy keeps us grounded and focused, making sure every move we make hits the mark and stays true to what we stand for.",
+        bg: "#E7E7E7",
         img: img2,
         points: [
             "Social Media Strategy",
@@ -95,191 +107,219 @@ const SERVICES = [
     },
 ];
 
+gsap.registerPlugin(ScrollTrigger);
 const ServicesStackSection = () => {
-    const wrapperRef = useRef(null);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const containerRef = useRef(null);
+    const cardRefs = useRef([]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (!wrapperRef.current) return;
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+            const cards = cardRefs.current;
 
-            const rect = wrapperRef.current.getBoundingClientRect();
-            const screenH = window.innerHeight;
+            gsap.set(cards, {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+            });
 
-            const progress = Math.min(
-                Math.max(0, screenH - rect.top),
-                screenH * SERVICES.length
-            );
+            // STACK + SHADOW ANIMATION
+            cards.forEach((card, i) => {
 
-            const newIndex = Math.floor(progress / screenH);
+                // First card stays fixed
+                if (i === 0) {
+                    gsap.set(card, { y: "0%", opacity: 1 });
+                } else {
+                    gsap.fromTo(
+                        card,
+                        { y: "100%", opacity: 0 },
+                        {
+                            y: "0%",
+                            opacity: 1,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: containerRef.current,
+                                start: () => `top+=${i * window.innerHeight * 0.4} top`,
+                                end: () => `top+=${(i + 1) * window.innerHeight * 0.4} top`,
+                                scrub: true,     // <--- one global scrub
+                            },
+                        }
+                    );
+                }
 
-            if (newIndex !== activeIndex && newIndex < SERVICES.length) {
-                setActiveIndex(newIndex);
-            }
-        };
+                // SHADOW FADE
+                if (i > 0) {
+                    gsap.fromTo(
+                        cards[i - 1],
+                        { filter: "brightness(1)" },
+                        {
+                            filter: "brightness(0.1)",
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: containerRef.current,
+                                start: () => `top+=${i * window.innerHeight * 0.4} top`,
+                                end: () => `top+=${(i + 1) * window.innerHeight * 0.4} top`,
+                                scrub: true,   // <--- same scrub
+                            },
+                        }
+                    );
+                }
+            });
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [activeIndex]);
+            // PIN FULL SECTION
+            ScrollTrigger.create({
+                trigger: containerRef.current,
+                start: "top top",
+                end: `+=${SERVICES.length * window.innerHeight * 0.5}`,
+                pin: true,
+                scrub: true,
+            });
+
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
+
+
 
     return (
         <Box
+            ref={containerRef}
             sx={{
-                position: "relative",
                 width: "100%",
-                height: `${SERVICES.length * 100}vh`,
-                borderTop: "2px solid #D8D8D8",
-                borderBottom: "2px solid #D8D8D8",
-                marginBottom: "100px",
+                height: { xs: "100vh", md: "100vh" },
+
+                position: "relative",
+                overflow: "hidden",
+                borderTop: "2px solid #E7E7E7",
             }}
-            ref={wrapperRef}
         >
-            <Box
-                sx={{
-                    position: "sticky",
-                    top: 0,
-                    height: "95vh",
-                    overflow: "hidden",
-                }}
-            >
-                {SERVICES.map((service, index) => (
+            {SERVICES.map((service, index) => (
+                <Box
+                    key={index}
+                    ref={(el) => (cardRefs.current[index] = el)}
+                    sx={{
+                        width: "100%",
+                        height: { xs: "none", md: "100%" },
+                        backgroundColor: service.bg,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        flexDirection: { xs: "column", md: "row" },   // ← IMPORTANT
+                        alignItems: "center",
+                        padding: { xs: "110px 20px", md: "0px 50px" },
+                        gap: { xs: 4, md: 6 },
+                        color: "#1D1D1B"
+                    }}
+                >
+
+                    {/* LEFT COLUMN */}
                     <Box
-                        key={index}
                         sx={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: service.bg,
+                            width: { xs: "100%", sm: "100%", md: "auto" },
                             display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            padding: "0px 80px",
-                            color: "#1D1D1B",
-                            // transition: "opacity 0.6s ease, transform 0.6s ease",
-                            transition: "opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
-                            opacity: activeIndex === index ? 1 : 0,
-                            transform:
-                                activeIndex === index ? "translateY(0px)" : "translateY(40px)",
-                            pointerEvents: activeIndex === index ? "auto" : "none",
+                            flexDirection: "column",
+                            justifyContent: { xs: "flex-start", md: "space-around" },
+                            height: "100%",
+                        }}
+                    >
+                        <Box sx={{
+
                         }}>
-                        {/* LEFT COLUMN */}
-                        <Box
-                            sx={{
-                                pr: 8,
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-around",
-                                height: "100%",        // Ensures full column spacing works
-                            }}
-                        >
-                            {/* TOP: Heading + Description */}
-                            <Box>
-                                <Typography
-                                    sx={{
-                                        fontSize: "30px",
-                                        fontFamily: "Inter Tight, sans-serif",
-                                        letterSpacing: "-1.1px",
-                                        fontWeight: 800,
-                                        textTransform: "lowercase",
-                                        mb: 1,
-                                    }}
-                                >
-                                    {service.title}
-                                </Typography>
-
-                                <Typography
-                                    sx={{
-                                        fontSize: "16px",
-                                        fontFamily: "Inter Tight, sans-serif",
-                                        letterSpacing: "0px",
-                                        mb: 3,
-                                        maxWidth: "420px",
-                                        lineHeight: 1.4,
-                                    }}
-                                >
-                                    {DESCRIPTION}
-                                </Typography>
-                            </Box>
-
-                            {/* BOTTOM: Button */}
-                            <Box
+                            <Typography
                                 sx={{
-                                    mt: 4,
-                                    display: "flex",
+                                    fontSize: { xs: "23px", md: "30px" },
+                                    fontFamily: "Inter Tight, sans-serif",
+                                    letterSpacing: "-1.1px",
+                                    fontWeight: 800,
+                                    textTransform: "lowercase",
+                                    mb: 1,
                                 }}
                             >
-                                <Box
-                                    sx={{
-                                        px: 3,
-                                        py: 2.2,
-                                        background: "#fff",
-                                        borderRadius: "30px",
-                                        display: "inline-block",
-                                        color: "#111",
-                                        fontWeight: 700,
-                                        backgroundColor: "#EEEEEE",
-                                        cursor: "pointer",
-                                        fontFamily: "Inter Tight, sans-serif",
-                                    }}
-                                >
-                                    let's work together
-                                </Box>
-                            </Box>
+                                {service.title}
+                            </Typography>
+
+                            <Typography
+                                sx={{
+                                    fontSize: { xs: "11px", md: "14px" },
+                                    fontFamily: "Inter Tight, sans-serif",
+                                    mb: 3,
+                                    maxWidth: { xs: "86%", md: "450px" },
+                                    lineHeight: 1.4,
+                                }}
+                            >
+                                {service.DESCRIPTION}
+                            </Typography>
                         </Box>
 
-
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 1, alignItems: "flex-end", justifyContent: "flex-end", height: "70%" }}
-                        >
-                            {/* BULLETS */}
-                            <Box>
-                                {service.points.map((p, i) => (
-                                    <Typography
-                                        key={i}
-                                        sx={{
-                                            fontSize: "15px",
-                                            fontWeight: 400,
-                                            fontFamily: "Inter Tight, sans-serif",
-                                            lineHeight: 1.5,
-                                            display: "flex",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        → {p}
-                                    </Typography>
-                                ))}
+                        <Box sx={{ mt: { xs: 0, md: 4 } }}>
+                            <Box
+                                sx={{
+                                    px: { xs: "12px", md: "18px" },
+                                    py: { xs: "12px", md: "18px" },
+                                    fontSize: { xs: "11px", md: "14px" },
+                                    background: "#1D1D1B",
+                                    borderRadius: "30px",
+                                    display: "inline-block",
+                                    color: "white",
+                                    fontWeight: 700,
+                                    fontFamily: "Inter Tight, sans-serif",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                let's work together
                             </Box>
-                        </Box>
-
-                        {/* RIGHT COLUMN */}
-                        <Box
-                            sx={{
-
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 3,
-                            }}
-                        >
-                            {/* IMAGE */}
-                            <Box sx={{ width: "100%" }}>
-                                <img
-                                    src={service.img}
-                                    style={{
-                                        width: "100%",
-                                        height: "auto",
-                                        borderRadius: "8px",
-                                        objectFit: "cover",
-                                    }}
-                                    alt=""
-                                />
-                            </Box>
-
                         </Box>
                     </Box>
-                ))}
-            </Box>
-        </Box>
+
+                    {/* MIDDLE BULLETS */}
+                    <Box
+                        sx={{
+                            display: "flex",
+                            width: { xs: "100%", sm: "100%", md: "auto" },
+                            flexDirection: "column",
+                            gap: 1,
+                            alignItems: "flex-start",
+                            justifyContent: { xs: "flex-start", md: "flex-end" },
+                            height: "100%", marginBottom: { xs: "0", md: "130px" }
+                        }}
+                    >
+                        {service.points.map((p, i) => (
+                            <Typography
+                                key={i}
+                                sx={{
+                                    fontSize: { xs: "11px", md: "14px" },
+                                    fontWeight: 400,
+                                    fontFamily: "Inter Tight, sans-serif",
+                                    lineHeight: 1.5,
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                → {p}
+                            </Typography>
+                        ))}
+                    </Box>
+
+
+                    {/* RIGHT IMAGE */}
+                    < Box sx={{
+                        paddingRight: "80px", width: { xs: "100%", md: "35%" },
+                    }}>
+                        <img
+                            src={service.img}
+                            style={{
+                                width: "100%",
+                                height: "400px",
+                                borderRadius: "8px",
+                                objectFit: "cover",
+
+                            }}
+                            alt=""
+                        />
+                    </Box>
+                </Box >
+            ))}
+        </Box >
     );
 };
 

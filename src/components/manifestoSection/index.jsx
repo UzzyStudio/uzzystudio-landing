@@ -60,7 +60,7 @@ const renderLine2 = (lineIndex, progress, fontSize, mobile) => {
                 textTransform: lineIndex < 3 ? "uppercase" : "none",
                 lineHeight: 1.2,
                 letterSpacing: "-0.02em",
-                mb: mobile ? "4px" : "10px",
+                mb: mobile ? "4px" : "0px",
             }}
         >
             {chars.map((char, i) => {
@@ -183,7 +183,7 @@ const ManifestoSection = () => {
     const bigTextSize = isMobile ? "40px" : "110px";
 
     return (
-        <Box sx={{ width: "100%", maxWidth: "1600px", position: "relative", top: "-80px", overflow: "hidden", mx: "auto", paddingTop: "330px" }}>
+        <Box sx={{ width: "100%", maxWidth: "1600px", position: "relative", top: "50px", overflow: "hidden", mx: "auto", paddingTop: "330px" }}>
 
             {/* ------------------------------------
                 1️⃣ TOP AUTO-SLIDING MANIFESTO STRIP
@@ -194,8 +194,9 @@ const ManifestoSection = () => {
                     overflow: "hidden",
                     position: "relative",
                     width: "100%",
+                    top: { xs: "-286px", md: "0" },
                     whiteSpace: "nowrap",
-                    transform: "skewY(-1deg)",
+                    transform: { xs: "skewY(-8deg)", md: "skewY(-3deg)" },
 
                 }}
             >
@@ -347,7 +348,7 @@ const ManifestoSection = () => {
                         fontSize: isMobile ? "110px" : "250px",
                         fontWeight: 800,
                         fontFamily: "Inter Tight, sans-serif",
-                        textTransform: "lowercase",
+
                         whiteSpace: "nowrap",
                         transform: `translateX(${offset}px)`,
                         transition: "transform 0.2s ease-out",
@@ -356,11 +357,12 @@ const ManifestoSection = () => {
                         left: "-30%",
                     }}
                 >
-                    bebebebebebebebebebebebebebebebebebebebebebebebebebebebebbe
+                    UsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUs
                 </Typography>
             </Box>
             {/* text and big heading */}
             <Box
+                id="services"
                 ref={containerRef}
                 sx={{
                     padding: isMobile ? "140px 20px 0px 20px" : "80px 0px 0px 0px",

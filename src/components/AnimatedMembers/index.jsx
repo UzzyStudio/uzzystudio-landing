@@ -86,6 +86,7 @@ export default function AnimatedMembers() {
 
     return (
         <Box
+
             ref={containerRef}
             sx={{
                 width: "100%",

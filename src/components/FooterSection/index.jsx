@@ -97,7 +97,7 @@ export default function FooterSection() {
                 <Grid ref={menuRef}
                     container
                     sx={{
-                        mb: { xs: 4, md: 8 },
+                        mb: { xs: 15, md: 8 },
                         justifyContent: { xs: "center", md: "space-between" },
                         alignItems: "center",
                         textAlign: { xs: "center", md: "left" },
@@ -175,9 +175,9 @@ export default function FooterSection() {
                             <Button
                                 ref={buttonRef}
                                 sx={{
-                                    px: { xs: 2, sm: 3, md: 4 },   // smaller padding on mobile
-                                    py: { xs: 2, sm: 2.5, md: 3 },
-                                    fontSize: { xs: "12px", sm: "14px", md: "15px" },
+                                    px: { xs: 1.8, sm: 3, md: 4 },   // smaller padding on mobile
+                                    py: { xs: 1.4, sm: 2.5, md: 3 },
+                                    fontSize: { xs: "10px", sm: "14px", md: "15px" },
                                     borderRadius: "40px",
                                     backgroundColor: "#CAF55E",
                                     color: "#1D1D1B",
@@ -203,14 +203,14 @@ export default function FooterSection() {
 
                             sx={{
                                 textAlign: "center", position: "relative", top: { xs: "-20px", sm: "80px", md: "214px" },
-                                left: { xs: "100px", sm: "180px", md: "790px" },
+                                left: { xs: "65px", sm: "180px", md: "790px" },
                             }}
                         >
                             <img
                                 src={RandomImg}
                                 alt="random"
                                 style={{
-                                    width: "75px", height: "auto", maxWidth: { xs: "20px", sm: "55px", md: "75px" }
+                                    width: { xs: "5px", md: "75px" }, height: "auto", maxWidth: { xs: "20px", sm: "55px", md: "75px" }
                                 }}
                             />
                             <Typography sx={{
@@ -236,7 +236,7 @@ export default function FooterSection() {
                             justifyContent: "flex-end",   // flush to bottom
                             height: "100%",
                             marginLeft: {
-                                xs: "-20px", // mobile
+                                xs: "-10px", // mobile
                                 sm: "-35px", // tablet & desktop
                             },
 
