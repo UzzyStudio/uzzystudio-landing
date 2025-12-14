@@ -49,6 +49,7 @@ export default function ContactSection() {
 
     return (
         <Box
+            id="contact"
             sx={{
                 backgroundColor: "#fff",
                 py: { xs: 2, md: 12 },

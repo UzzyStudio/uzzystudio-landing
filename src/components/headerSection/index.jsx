@@ -16,7 +16,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ContactDrawer from "../ContactDrawer";
-
 import Logo from "../../assets/logo.svg fill.svg";
 
 const menuItems = [
@@ -120,9 +119,17 @@ const Header = () => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
+                            cursor: "pointer"
                         }}
                     >
-                        <img src={Logo} alt="Logo" width="40" height="40" />
+                        <img
+                            onClick={() => {
+                                window.scrollTo({
+                                    top: 0,
+                                    behavior: "smooth", // smooth scroll
+                                });
+                            }}
+                            src={Logo} alt="Logo" width="40" height="40" />
                     </Box>
 
                     {/* Desktop Menu */}

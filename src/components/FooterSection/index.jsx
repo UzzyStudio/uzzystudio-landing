@@ -10,6 +10,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 export default function FooterSection() {
+
+    const handleScrollToContact = () => {
+        const contact = document.getElementById("contact");
+        if (!contact) return;
+
+        gsap.to(window, {
+            scrollTo: {
+                y: contact,
+                autoKill: false,
+            },
+            duration: 1.2,
+            ease: "power2.out",
+        });
+    };
+
     const sectionRef = useRef(null);
     const menuRef = useRef(null);
     const logoRef = useRef(null);
@@ -173,6 +188,7 @@ export default function FooterSection() {
                             }}
                         >
                             <Button
+                                onClick={handleScrollToContact}
                                 ref={buttonRef}
                                 sx={{
                                     px: { xs: 1.8, sm: 3, md: 4 },   // smaller padding on mobile

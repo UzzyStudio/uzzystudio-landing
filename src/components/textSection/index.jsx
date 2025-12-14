@@ -103,7 +103,7 @@ const CreativeTextSection = () => {
                     src={HeartDoodle}
                     sx={{
                         top: isMobile ? "5%" : isTablet ? "12%" : "23%",
-                        left: isMobile ? "60%" : isTablet ? "70%" : "74%",
+                        left: isMobile ? "60%" : isTablet ? "70%" : "72.4%",
                         width: isMobile ? "40px" : isTablet ? "70px" : "85px",
                     }}
                 />
@@ -112,8 +112,8 @@ const CreativeTextSection = () => {
                     src={ZigZagDoodle}
                     sx={{
                         top: isMobile ? "28%" : isTablet ? "35%" : "53%",
-                        left: isMobile ? "20%" : isTablet ? "26%" : "34%",
-                        width: isMobile ? "220px" : isTablet ? "380px" : "510px",
+                        left: isMobile ? "20%" : isTablet ? "26%" : "30%",
+                        width: isMobile ? "220px" : isTablet ? "380px" : "490px",
                     }}
                 />
 
@@ -121,8 +121,8 @@ const CreativeTextSection = () => {
                     src={RandomDoodle}
                     sx={{
                         top: isMobile ? "50%" : isTablet ? "58%" : "78%",
-                        left: isMobile ? "30%" : isTablet ? "36%" : "43%",
-                        width: isMobile ? "150px" : isTablet ? "250px" : "325px",
+                        left: isMobile ? "30%" : isTablet ? "36%" : "38%",
+                        width: isMobile ? "150px" : isTablet ? "250px" : "315px",
                     }}
                 />
 
@@ -267,7 +267,8 @@ const renderLine = (
                 display: "block",
                 textAlign: "center",
                 mb: spacingFix,
-                ml: `${indent}px`,
+                ml: 0,
+
                 whiteSpace: "pre-wrap",
             }}
         >

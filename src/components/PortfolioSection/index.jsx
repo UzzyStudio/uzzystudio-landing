@@ -3,6 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+
 import PortfolioImg1 from "../../assets/portfolioimg1.svg";
 import PortfolioImg2 from "../../assets/portfolioimg2.svg";
 import PortfolioImg3 from "../../assets/portfolioimg3.svg";
@@ -15,6 +16,21 @@ import ThreeLines from "../../assets/threelines.svg";
 gsap.registerPlugin(ScrollTrigger);
 
 const PortfolioSection = () => {
+
+    const handleScrollToContact = () => {
+        const contact = document.getElementById("contact");
+        if (!contact) return;
+
+        gsap.to(window, {
+            scrollTo: {
+                y: contact,
+                autoKill: false,
+            },
+            duration: 1.2,
+            ease: "power2.out",
+        });
+    };
+
     const sectionRef = useRef(null);
     useEffect(() => {
         const images = gsap.utils.toArray(".zoom-img");
@@ -96,6 +112,7 @@ const PortfolioSection = () => {
     // ************************************
     const FullBox = ({ img, tags, title, subtitle }) => (
         <Box
+            id="cases"
             sx={{
                 position: "relative",
                 height: { xs: "300px", md: "500px" },
@@ -342,6 +359,7 @@ const PortfolioSection = () => {
             </Typography>
 
             <Button
+                onClick={handleScrollToContact}
                 variant="contained"
                 sx={{
                     backgroundColor: "#1D1D1B",

@@ -3,6 +3,9 @@ import img2 from "../../assets/img2.png";
 import { useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 
 // Shared description text
 
@@ -109,6 +112,20 @@ const SERVICES = [
 
 gsap.registerPlugin(ScrollTrigger);
 const ServicesStackSection = () => {
+    const handleScrollToContact = () => {
+        const contact = document.getElementById("contact");
+        if (!contact) return;
+
+        gsap.to(window, {
+            scrollTo: {
+                y: contact,
+                autoKill: false,
+            },
+            duration: 1.2,
+            ease: "power2.out",
+        });
+    };
+
     const containerRef = useRef(null);
     const cardRefs = useRef([]);
 
@@ -121,69 +138,78 @@ const ServicesStackSection = () => {
                 top: 0,
                 left: 0,
                 width: "100%",
+                filter: "brightness(1)",   // 👈 IMPORTANT
+                opacity: 1,                // 👈 IMPORTANT
             });
 
-            // STACK + SHADOW ANIMATION
             cards.forEach((card, i) => {
+                gsap.set(card, {
+                    backgroundColor: i === 0 ? "#ffffff" : "#E7E7E7",
+                });
+            });
 
-                // First card stays fixed
+
+            // Initial states
+            cards.forEach((card, i) => {
                 if (i === 0) {
-                    gsap.set(card, { y: "0%", opacity: 1 });
+                    gsap.set(card, { y: 0, opacity: 1 });
                 } else {
-                    gsap.fromTo(
-                        card,
-                        { y: "100%", opacity: 0 },
-                        {
-                            y: "0%",
-                            opacity: 1,
-                            ease: "power2.out",
-                            scrollTrigger: {
-                                trigger: containerRef.current,
-                                start: () => `top+=${i * window.innerHeight * 0.4} top`,
-                                end: () => `top+=${(i + 1) * window.innerHeight * 0.4} top`,
-                                scrub: true,     // <--- one global scrub
-                            },
-                        }
-                    );
-                }
-
-                // SHADOW FADE
-                if (i > 0) {
-                    gsap.fromTo(
-                        cards[i - 1],
-                        { filter: "brightness(1)" },
-                        {
-                            filter: "brightness(0.1)",
-                            ease: "none",
-                            scrollTrigger: {
-                                trigger: containerRef.current,
-                                start: () => `top+=${i * window.innerHeight * 0.4} top`,
-                                end: () => `top+=${(i + 1) * window.innerHeight * 0.4} top`,
-                                scrub: true,   // <--- same scrub
-                            },
-                        }
-                    );
+                    gsap.set(card, { y: "100%", opacity: 1 });
                 }
             });
 
-            // PIN FULL SECTION
-            ScrollTrigger.create({
-                trigger: containerRef.current,
-                start: "top top",
-                end: `+=${SERVICES.length * window.innerHeight * 0.5}`,
-                pin: true,
-                scrub: true,
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top",
+                    end: `+=${cards.length * window.innerHeight * 1.3}`,
+                    scrub: 1,           // 👈 DIRECT scroll mapping
+                    pin: true,
+                    anticipatePin: 1,
+                },
             });
 
+            cards.forEach((card, i) => {
+                if (i === 0) return;
+
+                // Incoming card (from bottom → active)
+                tl.fromTo(
+                    card,
+                    { y: "100%", opacity: 1, filter: "brightness(1)" },
+                    { y: "0%", opacity: 1, filter: "brightness(1)", ease: "none" }
+                );
+
+                // Incoming card → becomes ACTIVE (white)
+                tl.to(
+                    card,
+                    {
+                        backgroundColor: "#ffffff",
+                        ease: "none",
+                    },
+                    "<"
+                );
+
+                // Previous card → goes to BACKGROUND (grey + dim)
+                tl.to(
+                    cards[i - 1],
+                    {
+                        backgroundColor: "#F0F0F0",
+                        opacity: 0.35,
+                        filter: "brightness(0.25)",
+                        ease: "power1.out",
+                    },
+                    "<"
+                );
+
+            });
         }, containerRef);
 
         return () => ctx.revert();
     }, []);
 
-
-
     return (
         <Box
+
             ref={containerRef}
             sx={{
                 width: "100%",
@@ -201,7 +227,7 @@ const ServicesStackSection = () => {
                     sx={{
                         width: "100%",
                         height: { xs: "none", md: "100%" },
-                        backgroundColor: service.bg,
+                        // backgroundColor: service.bg,
                         display: "flex",
                         justifyContent: "space-between",
                         flexDirection: { xs: "column", md: "row" },   // ← IMPORTANT
@@ -253,6 +279,8 @@ const ServicesStackSection = () => {
 
                         <Box sx={{ mt: { xs: 0, md: 4 } }}>
                             <Box
+                                onClick={handleScrollToContact}
+
                                 sx={{
                                     px: { xs: "12px", md: "18px" },
                                     py: { xs: "12px", md: "18px" },
@@ -280,7 +308,7 @@ const ServicesStackSection = () => {
                             gap: 1,
                             alignItems: "flex-start",
                             justifyContent: { xs: "flex-start", md: "flex-end" },
-                            height: "100%", marginBottom: { xs: "0", md: "130px" }
+                            height: "100%", marginBottom: { xs: "0", md: "190px" }
                         }}
                     >
                         {service.points.map((p, i) => (

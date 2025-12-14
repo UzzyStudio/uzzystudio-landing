@@ -348,7 +348,8 @@ const ManifestoSection = () => {
                         fontSize: isMobile ? "110px" : "250px",
                         fontWeight: 800,
                         fontFamily: "Inter Tight, sans-serif",
-
+                        textTransform: "capitalize",
+                        fontStyle: "italic",
                         whiteSpace: "nowrap",
                         transform: `translateX(${offset}px)`,
                         transition: "transform 0.2s ease-out",
@@ -357,12 +358,11 @@ const ManifestoSection = () => {
                         left: "-30%",
                     }}
                 >
-                    UsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUsUs
+                    USUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSU
                 </Typography>
             </Box>
             {/* text and big heading */}
             <Box
-                id="services"
                 ref={containerRef}
                 sx={{
                     padding: isMobile ? "140px 20px 0px 20px" : "80px 0px 0px 0px",
@@ -402,6 +402,7 @@ const ManifestoSection = () => {
 
                 {/* Random doodle behind heading */}
                 <Box
+                    id="services"
                     component="img"
                     src={RandomDoodle}
                     sx={{

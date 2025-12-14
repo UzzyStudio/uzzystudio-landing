@@ -15,7 +15,7 @@ export default function ContactDrawer({ open, onClose }) {
             PaperProps={{
                 sx: {
                     width: {
-                        xs: "100%",
+                        xs: "80%",
                         sm: "480px",
                         md: "720px",
                     },
