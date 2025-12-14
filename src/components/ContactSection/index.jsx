@@ -17,6 +17,16 @@ import InstagramLogo from "../../assets/dribble.svg";
 
 export default function ContactSection() {
 
+    const wiggle = {
+        '@keyframes wiggle': {
+            '0%': { transform: 'rotate(0deg)' },
+            '25%': { transform: 'rotate(3deg)' },
+            '50%': { transform: 'rotate(-3deg)' },
+            '75%': { transform: 'rotate(2deg)' },
+            '100%': { transform: 'rotate(0deg)' },
+        },
+    };
+
     const [selectedServices, setSelectedServices] = React.useState([]);
     const [selectedBudget, setSelectedBudget] = useState(null);
 
@@ -289,6 +299,8 @@ export default function ContactSection() {
                                             label={item}
                                             onClick={() => toggleService(item)}
                                             sx={{
+                                                ...wiggle, // add keyframes
+
                                                 borderRadius: "80px",
                                                 px: { xs: 1.5, sm: 2, md: 2.2 },   // left-right padding
                                                 py: { xs: 1.5, sm: 2, md: 3 },     // top-bottom padding
@@ -299,6 +311,8 @@ export default function ContactSection() {
                                                 border: "1px solid #e0e0e0",
                                                 "&:hover": {
                                                     backgroundColor: selectedServices.includes(item) ? "black" : "#f4f4f4",
+                                                    animation: 'wiggle 0.4s ease-in-out', // wiggle on hover
+
                                                 },
                                             }}
                                         />
@@ -330,6 +344,8 @@ export default function ContactSection() {
                                                 label={item}
                                                 onClick={() => setSelectedBudget(isSelected ? null : item)}
                                                 sx={{
+                                                    ...wiggle, // add keyframes
+
                                                     borderRadius: "80px",
                                                     px: { xs: 1.5, sm: 2, md: 2.2 },   // left-right padding
                                                     py: { xs: 1.5, sm: 2, md: 3 },     // top-bottom padding
@@ -343,6 +359,8 @@ export default function ContactSection() {
                                                     transition: "all 0.2s ease",
                                                     "&:hover": {
                                                         backgroundColor: isSelected ? "#000" : "#f5f5f5",
+                                                        animation: 'wiggle 0.4s ease-in-out', // wiggle on hover
+
                                                     }
                                                 }}
                                             />
@@ -352,24 +370,16 @@ export default function ContactSection() {
                             </Box>
 
 
-                            {/* MESSAGE FIELD */}
+                            {/* MESSAGE */}
                             <Box sx={{ mt: 4 }}>
+                                <Typography sx={labelStyle}>Write us a message</Typography>
                                 <TextField
-                                    label="Tell us more about your project"
                                     fullWidth
-                                    multiline
-                                    minRows={5}
-                                    sx={{
-                                        "& .MuiOutlinedInput-root": {
-                                            borderRadius: "0px",
-                                        },
-                                    }}
-                                    InputLabelProps={{
-                                        style: {
-                                            fontFamily: "Inter Tight, sans-serif",
-                                            sx: { fontSize: { xs: "10px", md: "14px" } }
-                                        }
-                                    }}
+                                    placeholder="Briefly describe your project"
+
+                                    variant="standard"
+                                    InputProps={{ disableUnderline: true }}
+                                    sx={singleLineInputStyle}
                                 />
                             </Box>
 
@@ -404,3 +414,25 @@ export default function ContactSection() {
         </Box >
     );
 }
+
+const labelStyle = {
+    mb: 1,
+    fontWeight: 500,
+    fontSize: { xs: "10px", md: "15px" },
+    fontFamily: "Inter Tight, sans-serif",
+    color: "#000",
+};
+
+const singleLineInputStyle = {
+    "& .MuiInputBase-input": {
+        fontFamily: "Inter Tight, sans-serif",
+        fontSize: { xs: "10px", md: "15px" },
+        padding: "8px 0",
+        "&::placeholder": {
+            fontSize: { xs: "9px", md: "15px" },
+            opacity: 0.5,
+            fontFamily: "Inter Tight, sans-serif",
+        },
+    },
+    borderBottom: "1px solid #000",
+};
