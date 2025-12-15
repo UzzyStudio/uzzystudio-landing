@@ -101,11 +101,10 @@ export default function ContactForm() {
                                 }
                                 sx={{
                                     ...chipStyle,
-                                    backgroundColor: isSelected ? "#000" : "transparent",
-                                    color: isSelected ? "#fff" : "#000",
-                                    border: isSelected
-                                        ? "1px solid #000"
-                                        : "1px solid #e0e0e0",
+                                    backgroundColor: selectedServices.includes(item)
+                                        ? "#000"
+                                        : "transparent",
+                                    color: selectedServices.includes(item) ? "#fff" : "#000",
                                 }}
                             />
                         );
@@ -179,7 +178,7 @@ const chipStyle = {
     py: { xs: 1.5, sm: 2, md: 2.3 },
     fontSize: { xs: "8px", sm: "11px", md: "12px" },
     cursor: "pointer",
-    border: "1px solid #e0e0e0",
+    border: "1px solid #040404ff",
     "&:hover": {
         backgroundColor: "#f4f4f4",
     },

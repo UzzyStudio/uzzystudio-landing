@@ -23,7 +23,8 @@ export default function ContactDrawer({ open, onClose }) {
                     minHeight: "100vh",
                     height: "auto",          // content-based
                     padding: "5px 40px",
-                    backgroundColor: "#fff",
+                    backgroundColor: "rgba(255, 255, 255, 0.75)", // 🔹 more transparent
+                    backdropFilter: "blur(10px)",             // optional: adds blur effect
                     overflowY: "visible",
                 },
             }}
