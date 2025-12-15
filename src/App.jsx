@@ -13,6 +13,7 @@ import ServicesStackSection from './components/servicesStackSection';
 import CursorFollower from './components/CursorFollower';
 import AnimatedMembers from './components/AnimatedMembers';
 import ContactSection from './components/ContactSection';
+import SmoothAlternatingSlider1 from './components/imgsSlider';
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 function App() {
@@ -37,7 +38,8 @@ function App() {
       <CursorFollower />
       <Header />
       <Hero />
-      <SmoothAlternatingSlider />
+      {/* <SmoothAlternatingSlider /> */}
+      <SmoothAlternatingSlider1 />
       <CreativeTextSection />
       <ManifestoSection />
       <ServicesStackSection />
