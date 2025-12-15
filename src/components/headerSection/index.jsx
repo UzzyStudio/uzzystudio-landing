@@ -104,6 +104,7 @@ const Header = () => {
                 sx={{
                     display: "flex",
                     justifyContent: "flex-end",
+                    maxWidth: "1600px",
                     animation: `${slideDownFast} 0.7s ease-out`,
                     animationFillMode: "forwards",
                 }}
@@ -183,6 +184,19 @@ const Header = () => {
                                         backgroundColor: "#B6E450",
                                         boxShadow: "none",
                                     },
+                                    "&:focus": {
+                                        outline: "none",
+                                    },
+
+                                    "&:focus-visible": {
+                                        outline: "none",
+                                        boxShadow: "none",
+                                    },
+
+                                    "&.Mui-focusVisible": {
+                                        outline: "none",
+                                        boxShadow: "none",
+                                    },
                                 }}
                             >
                                 start a project
@@ -242,6 +256,9 @@ const Header = () => {
                                     backgroundColor: "#B6E450",
                                     boxShadow: "none",
                                 },
+                                "&:focus": { outline: "none" },
+                                "&:focus-visible": { outline: "none" },
+                                "&.Mui-focusVisible": { boxShadow: "none" },
                             }}
                         >
                             start a project

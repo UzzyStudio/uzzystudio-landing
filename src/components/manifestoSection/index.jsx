@@ -183,7 +183,7 @@ const ManifestoSection = () => {
     const bigTextSize = isMobile ? "40px" : "110px";
 
     return (
-        <Box sx={{ width: "100%", maxWidth: "1600px", position: "relative", top: "50px", overflow: "hidden", mx: "auto", paddingTop: "330px" }}>
+        <Box sx={{ width: "100%", position: "relative", top: "50px", overflow: "hidden", mx: "auto", paddingTop: "330px" }}>
 
             {/* ------------------------------------
                 1️⃣ TOP AUTO-SLIDING MANIFESTO STRIP
@@ -226,7 +226,7 @@ const ManifestoSection = () => {
                                 whiteSpace: "nowrap",
                             }}
                         >
-                            {"MANIFESTO — ".repeat(20)}
+                            {"MANIFESTO — ".repeat(60)}
                         </Typography>
                     </Box>
 
@@ -250,7 +250,7 @@ const ManifestoSection = () => {
                                 whiteSpace: "nowrap",
                             }}
                         >
-                            {"MANIFESTO — ".repeat(20)}
+                            {"MANIFESTO — ".repeat(60)}
                         </Typography>
                     </Box>
                 </Box>

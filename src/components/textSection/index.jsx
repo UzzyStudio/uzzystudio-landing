@@ -103,7 +103,7 @@ const CreativeTextSection = () => {
                     src={HeartDoodle}
                     sx={{
                         top: isMobile ? "5%" : isTablet ? "12%" : "23%",
-                        left: isMobile ? "60%" : isTablet ? "70%" : "72.4%",
+                        left: isMobile ? "60%" : isTablet ? "70%" : "76%",
                         width: isMobile ? "40px" : isTablet ? "70px" : "85px",
                     }}
                 />
@@ -111,18 +111,18 @@ const CreativeTextSection = () => {
                 <Doodle
                     src={ZigZagDoodle}
                     sx={{
-                        top: isMobile ? "28%" : isTablet ? "35%" : "53%",
-                        left: isMobile ? "20%" : isTablet ? "26%" : "30%",
-                        width: isMobile ? "220px" : isTablet ? "380px" : "490px",
+                        top: isMobile ? "28%" : isTablet ? "35%" : "53.9%",
+                        left: isMobile ? "20%" : isTablet ? "26%" : "49%",
+                        width: isMobile ? "220px" : isTablet ? "380px" : "498px",
                     }}
                 />
 
                 <Doodle
                     src={RandomDoodle}
                     sx={{
-                        top: isMobile ? "50%" : isTablet ? "58%" : "78%",
-                        left: isMobile ? "30%" : isTablet ? "36%" : "38%",
-                        width: isMobile ? "150px" : isTablet ? "250px" : "315px",
+                        top: isMobile ? "50%" : isTablet ? "58%" : "75%",
+                        left: isMobile ? "30%" : isTablet ? "36%" : "51%",
+                        width: isMobile ? "150px" : isTablet ? "250px" : "398px",
                     }}
                 />
 
@@ -232,6 +232,7 @@ const Doodle = ({ src, sx }) => (
             opacity: 1,
             zIndex: 1,
             pointerEvents: "none",
+            transform: "translateX(-50%)",
             ...sx,
         }}
     />

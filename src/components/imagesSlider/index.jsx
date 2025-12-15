@@ -19,6 +19,44 @@ const originalImages = [img1, img2, img3, img4, img5, img6];
 const images = [...originalImages, ...originalImages, ...originalImages];
 
 const SmoothAlternatingSlider = () => {
+
+    const containerRef = useRef(null);
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+    const [cursorActive, setCursorActive] = useState(false);
+    const hasMovedInside = useRef(false);
+
+
+
+    const handleMouseMove = (e) => {
+        if (!containerRef.current) return;
+
+        const rect = containerRef.current.getBoundingClientRect();
+
+
+        // ✅ Mark that mouse has moved at least once
+        if (!hasMovedInside.current) {
+            hasMovedInside.current = true;
+            setCursorActive(true);
+        }
+
+        setCursorPos({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        });
+    };
+
+    // const handleMouseEnter = () => {
+    //     setCursorActive(true);
+    // };
+
+    const handleMouseLeave = () => {
+        setCursorActive(false);
+        hasMovedInside.current = false;
+        // Reset position so it NEVER freezes outside
+        setCursorPos({ x: 0, y: 0 });
+    };
+
+
     const sliderRef = useRef(null);
 
     /** ----------------------  
@@ -44,6 +82,8 @@ const SmoothAlternatingSlider = () => {
      SLIDE LOGIC (INFINITE LOOP)
     -----------------------------**/
     const slide = (dir) => {
+
+
         // Faster movement ONLY on mobile
         const moveBy = (ITEM_WIDTH_BIG + ITEM_WIDTH_SMALL) / (isXs ? 5 : isSm ? 7 : 5);
 
@@ -96,6 +136,7 @@ const SmoothAlternatingSlider = () => {
     DRAG / SWIPE SUPPORT (MOUSE + TOUCH)
 ------------------------------------**/
     useEffect(() => {
+
         const slider = sliderRef.current;
         if (!slider) return;
 
@@ -184,6 +225,10 @@ const SmoothAlternatingSlider = () => {
     /** RENDER **/
     return (
         <Box
+            ref={containerRef}
+            onMouseMove={handleMouseMove}
+            // onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             sx={{
                 width: "100%",
                 position: "relative",
@@ -191,6 +236,8 @@ const SmoothAlternatingSlider = () => {
                 height: isXs ? 200 : isSm ? 200 : 430,
                 pt: isXs ? "40px" : "80px",
                 pb: isXs ? "40px" : "80px",
+                cursor: "none", // 👈 hide default cursor
+
             }}
         >
             {/* SMILEY */}
@@ -245,42 +292,48 @@ const SmoothAlternatingSlider = () => {
             </Box>
 
             {/* ARROWS */}
+
             <Box
                 sx={{
                     position: "absolute",
-                    top: isXs ? "10%" : isSm ? "14%" : "16%",
-                    left: "50%",
+                    left: cursorPos.x,
+                    top: cursorPos.y,
                     transform: "translate(-50%, -50%)",
                     background: "black",
-                    width: isXs ? 58 : isSm ? 50 : 58,
-                    height: isXs ? 58 : isSm ? 50 : 58,
+                    width: 58,
+                    height: 58,
                     borderRadius: "50%",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    pointerEvents: "none", // VERY IMPORTANT
+                    zIndex: 20,
+                    // ✨ MAGIC
+                    opacity: cursorActive ? 1 : 0,
+                    scale: cursorActive ? 1 : 0.8,
+
+                    transition: "opacity 0.25s ease, scale 0.25s ease",
                 }}
             >
                 <img
                     src={ArrowBackIosNewIcon}
-                    onClick={() => slide("left")}
                     style={{
-                        width: isXs ? 22 : 22,
+                        width: 20,
                         position: "absolute",
-                        left: isXs ? 5 : 8,
-                        cursor: "pointer",
+                        left: 8,
                     }}
                 />
                 <img
                     src={ArrowForwardIosIcon}
-                    onClick={() => slide("right")}
                     style={{
-                        width: isXs ? 22 : 22,
+                        width: 20,
                         position: "absolute",
-                        right: isXs ? 5 : 8,
-                        cursor: "pointer",
+                        right: 8,
                     }}
                 />
             </Box>
+
+
         </Box>
     );
 };

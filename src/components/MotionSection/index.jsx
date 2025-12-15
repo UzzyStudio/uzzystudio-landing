@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -7,43 +7,17 @@ gsap.registerPlugin(ScrollTrigger);
 
 const MotionSection = () => {
     const sectionRef = useRef(null);
+    const topRef = useRef(null);
     const leftRef = useRef(null);
     const rightRef = useRef(null);
-    const topRef = useRef(null);
-    const bottomRef = useRef(null);
     const headingRef = useRef(null);
+    const bottomRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
             const smoothEase = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-            // LEFT → RIGHT fade + soft blur
-            gsap.from(leftRef.current, {
-                x: -20,
-                opacity: 0,
-                filter: "blur(8px)",
-                duration: 1.4,
-                ease: smoothEase,
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 85%",
-                },
-            });
-
-            // RIGHT → LEFT fade
-            gsap.from(rightRef.current, {
-                x: 20,
-                opacity: 0,
-                filter: "blur(8px)",
-                duration: 1.4,
-                ease: smoothEase,
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 85%",
-                },
-            });
-
-            // TOP → DOWN fade
+            // 1️⃣ FIRST ROW - Top small text (slide from top)
             gsap.from(topRef.current, {
                 y: -20,
                 opacity: 0,
@@ -51,25 +25,37 @@ const MotionSection = () => {
                 duration: 1.3,
                 ease: smoothEase,
                 scrollTrigger: {
-                    trigger: sectionRef.current,
+                    trigger: topRef.current,
                     start: "top 90%",
                 },
             });
 
-            // BOTTOM → UP fade
-            gsap.from(bottomRef.current, {
-                y: 20,
+            // 2️⃣ SECOND ROW - Left and Right small texts
+            gsap.from(leftRef.current, {
+                x: -20,
                 opacity: 0,
                 filter: "blur(6px)",
                 duration: 1.3,
                 ease: smoothEase,
                 scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 90%",
+                    trigger: leftRef.current,
+                    start: "top 85%",
                 },
             });
 
-            // HEADING (premium smooth grow)
+            gsap.from(rightRef.current, {
+                x: 20,
+                opacity: 0,
+                filter: "blur(6px)",
+                duration: 1.3,
+                ease: smoothEase,
+                scrollTrigger: {
+                    trigger: rightRef.current,
+                    start: "top 85%",
+                },
+            });
+
+            // 3️⃣ CENTER HEADING
             gsap.from(headingRef.current, {
                 opacity: 0,
                 scale: 0.92,
@@ -82,14 +68,25 @@ const MotionSection = () => {
                     start: "top 85%",
                 },
             });
-        });
+
+            // 4️⃣ THIRD ROW - Bottom text (slide from bottom)
+            gsap.from(bottomRef.current, {
+                y: 20,
+                opacity: 0,
+                filter: "blur(6px)",
+                duration: 1.3,
+                ease: smoothEase,
+                scrollTrigger: {
+                    trigger: bottomRef.current,
+                    start: "top 90%",
+                },
+            });
+        }, sectionRef);
 
         return () => ctx.revert();
     }, []);
 
-
     return (
-
         <Box
             ref={sectionRef}
             sx={{
@@ -100,25 +97,20 @@ const MotionSection = () => {
                 position: "relative",
             }}
         >
-            {/* INNER BOX */}
-            <Box sx={{
-                maxWidth: "1600px",
-                mx: "auto",
-            }}>
-
-                {/* Row 1 - Small Center Text */}
+            <Box sx={{ maxWidth: "1600px", mx: "auto" }}>
+                {/* Row 1 - Top Small Text */}
                 <Typography
                     ref={topRef}
                     sx={{
                         color: "#fff",
                         fontSize: "13px",
-
                         fontFamily: "Inter Tight, sans-serif",
                     }}
                 >
                     (TALK IS CHEAP. RESULTS AREN’T)
                 </Typography>
 
+                {/* Row 2 - Left, Center, Right */}
                 <Box
                     sx={{
                         display: "flex",
@@ -130,7 +122,7 @@ const MotionSection = () => {
                     }}
                 >
                     {/* LEFT TEXT */}
-                    <Box sx={{ flex: 0.5, textAlign: { xs: "center", md: "left", } }}>
+                    <Box sx={{ flex: 0.5, textAlign: { xs: "center", md: "left" } }}>
                         <Typography
                             ref={leftRef}
                             sx={{
@@ -144,7 +136,7 @@ const MotionSection = () => {
                     </Box>
 
                     {/* CENTER HEADING */}
-                    <Box sx={{ flex: 2, }}>
+                    <Box sx={{ flex: 2 }}>
                         <Typography
                             ref={headingRef}
                             sx={{
@@ -174,7 +166,8 @@ const MotionSection = () => {
                         </Typography>
                     </Box>
                 </Box>
-                {/* Row 3 - Bottom Center Small Text */}
+
+                {/* Row 3 - Bottom Small Text */}
                 <Typography
                     ref={bottomRef}
                     sx={{
@@ -186,7 +179,7 @@ const MotionSection = () => {
                     LET’S MAKE SOMETHING UNFORGETTABLE
                 </Typography>
             </Box>
-        </Box >
+        </Box>
     );
 };
 

@@ -183,8 +183,8 @@ export default function FooterSection() {
                         {/* CENTER — BUTTON */}
                         <Grid
                             sx={{
-                                textAlign: "center", position: "relative", top: { xs: "120px", sm: "140px", md: "170px" },
-                                left: { xs: "210px", sm: "200px", md: "791px" }, zIndex: "2"
+                                textAlign: "center", position: "relative", top: { xs: "120px", sm: "140px", md: "160px" },
+                                left: { xs: "210px", sm: "200px", md: "861px" }, zIndex: "2", transform: "translateX(-50%)",
                             }}
                         >
                             <Button
@@ -219,7 +219,7 @@ export default function FooterSection() {
 
                             sx={{
                                 textAlign: "center", position: "relative", top: { xs: "-20px", sm: "80px", md: "214px" },
-                                left: { xs: "65px", sm: "180px", md: "790px" },
+                                left: { xs: "65px", sm: "180px", md: "790px" }, transform: "translateX(-50%)"
                             }}
                         >
                             <img
@@ -251,23 +251,30 @@ export default function FooterSection() {
                             flexDirection: "column",
                             justifyContent: "flex-end",   // flush to bottom
                             height: "100%",
-                            marginLeft: {
-                                xs: "-10px", // mobile
-                                sm: "-35px", // tablet & desktop
-                            },
-
                         }}
                     >
-                        <img
-                            ref={logoRef}
-                            src={BigLogo}
-                            alt="big logo"
-                            style={{
+                        <Box
+                            sx={{
                                 width: "100%",
-                                maxWidth: "1300px",
-                                marginBottom: 0,
+                                overflow: "hidden", // optional: avoids scrollbars if image is slightly larger
+                                marginLeft: {
+                                    xs: "-10px", // mobile 
+                                    sm: "-35px",
+                                    //  tablet & desktop 
+                                },
                             }}
-                        />
+                        >
+                            <img
+                                ref={logoRef}
+                                src={BigLogo}
+                                alt="big logo"
+                                style={{
+                                    width: "100%", // makes image fill container width
+                                    height: "auto", // maintain aspect ratio
+                                    display: "block", // remove default inline spacing
+                                }}
+                            />
+                        </Box>
                     </Grid>
                 </Grid>
             </Box>

@@ -14,8 +14,8 @@ const CursorFollower = () => {
 
         const animate = () => {
             // move follower slightly towards the actual mouse
-            follower.current.x += (pos.current.x - follower.current.x) * 0.1; // 0.1 = speed
-            follower.current.y += (pos.current.y - follower.current.y) * 0.1;
+            follower.current.x += (pos.current.x - follower.current.x) * 0.05; // 0.1 = speed
+            follower.current.y += (pos.current.y - follower.current.y) * 0.05;
 
             if (cursorRef.current) {
                 cursorRef.current.style.transform = `translate3d(${follower.current.x}px, ${follower.current.y}px, 0)`;
