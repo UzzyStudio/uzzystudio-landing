@@ -102,27 +102,27 @@ const CreativeTextSection = () => {
                 <Doodle
                     src={HeartDoodle}
                     sx={{
-                        top: isMobile ? "5%" : isTablet ? "12%" : "23%",
-                        left: isMobile ? "60%" : isTablet ? "70%" : "76%",
-                        width: isMobile ? "40px" : isTablet ? "70px" : "85px",
+                        top: isMobile ? "5%" : isTablet ? "12%" : isBigScreen ? "22%" : "23%",
+                        left: isMobile ? "60%" : isTablet ? "70%" : isBigScreen ? "79%" : "76%",
+                        width: isMobile ? "40px" : isTablet ? "70px" : isBigScreen ? "120px%" : "85px",
                     }}
                 />
 
                 <Doodle
                     src={ZigZagDoodle}
                     sx={{
-                        top: isMobile ? "28%" : isTablet ? "35%" : "53.9%",
-                        left: isMobile ? "20%" : isTablet ? "26%" : "49%",
-                        width: isMobile ? "220px" : isTablet ? "380px" : "498px",
+                        top: isMobile ? "28%" : isTablet ? "35%" : isBigScreen ? "55%" : "53.9%",
+                        left: isMobile ? "20%" : isTablet ? "26%" : isBigScreen ? "49%" : "49%",
+                        width: isMobile ? "220px" : isTablet ? "380px" : isBigScreen ? "630px" : "498px",
                     }}
                 />
 
                 <Doodle
                     src={RandomDoodle}
                     sx={{
-                        top: isMobile ? "50%" : isTablet ? "58%" : "75%",
-                        left: isMobile ? "30%" : isTablet ? "36%" : "51%",
-                        width: isMobile ? "150px" : isTablet ? "250px" : "398px",
+                        top: isMobile ? "50%" : isTablet ? "58%" : isBigScreen ? "78%" : "75%",
+                        left: isMobile ? "30%" : isTablet ? "36%" : isBigScreen ? "52%" : "51%",
+                        width: isMobile ? "150px" : isTablet ? "250px" : isBigScreen ? "500px" : "398px",
                     }}
                 />
 

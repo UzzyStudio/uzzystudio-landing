@@ -185,7 +185,12 @@ export default function FooterSection() {
                             sx={{
                                 textAlign: "center", position: "relative", top: { xs: "120px", sm: "140px", md: "160px" },
                                 left: { xs: "210px", sm: "200px", md: "861px" }, zIndex: "2", transform: "translateX(-50%)",
+                                "@media (min-width:1300px)": {
+                                    top: "164px",
+                                    left: "995px",
+                                },
                             }}
+
                         >
                             <Button
                                 onClick={handleScrollToContact}
@@ -219,7 +224,12 @@ export default function FooterSection() {
 
                             sx={{
                                 textAlign: "center", position: "relative", top: { xs: "-20px", sm: "80px", md: "214px" },
-                                left: { xs: "65px", sm: "180px", md: "790px" }, transform: "translateX(-50%)"
+                                left: { xs: "65px", sm: "180px", md: "770px" }, transform: "translateX(-50%)",
+                                "@media (min-width:1300px)": {
+                                    top: "232px",
+                                    left: "955px",
+                                },
+
                             }}
                         >
                             <img
@@ -245,7 +255,7 @@ export default function FooterSection() {
                     <Grid
                         item
                         xs={12}
-                        md={10}
+                        md={12}
                         sx={{
                             display: "flex",
                             flexDirection: "column",
