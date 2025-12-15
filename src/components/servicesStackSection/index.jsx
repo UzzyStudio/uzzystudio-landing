@@ -337,7 +337,7 @@ const ServicesStackSection = () => {
                             src={service.img}
                             style={{
                                 width: "100%",
-                                height: "400px",
+                                height: { xs: "400px", md: "auto" },
                                 borderRadius: "8px",
                                 objectFit: "cover",
 
