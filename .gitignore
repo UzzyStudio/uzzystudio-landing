@@ -1,24 +1,24 @@
-# node
-node_modules
+# # node
+# node_modules
 
-# builds
-dist
-build
+# # builds
+# dist
+# build
 
-# env
-.env
-.env.local
+# # env
+# .env
+# .env.local
 
-# sanity cache
-.sanity
+# # sanity cache
+# .sanity
 
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# # logs
+# npm-debug.log*
+# yarn-debug.log*
+# yarn-error.log*
 
-# vercel
-.vercel
+# # vercel
+# .vercel
 
-# OS
-.DS_Store
+# # OS
+# .DS_Store
